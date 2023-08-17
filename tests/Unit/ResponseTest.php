@@ -3,6 +3,8 @@
 declare(strict_types=1);
 
 
+use App\Http\Response;
+
 test('a Response object can be created', function () {
 
     // ACT
@@ -10,7 +12,7 @@ test('a Response object can be created', function () {
 
 
     // ASSERT
-    expect($response->getStatus())->toBeInt()->toBe(200)
+    expect($response->getStatusCode())->toBeInt()->toBe(200)
         ->and($response->getBody())
         ->toMatchJson(['foo' => 'bar']);
 });

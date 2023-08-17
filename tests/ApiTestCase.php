@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use App\Http\Response;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 /**
