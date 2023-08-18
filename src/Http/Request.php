@@ -12,8 +12,11 @@ namespace App\Http;
 class Request
 {
     public function __construct(
-        private array $queryParams, // $_GET
-        private array $serverVars = []
+        private readonly array $queryParams, // $_GET
+        private readonly array $serverVars  = [], // $_SERVER
+        private readonly array $postParams  = [],
+        private readonly array $cookies     = [],
+        private readonly array $files       = []
     )
     {}
 
@@ -22,8 +25,9 @@ class Request
         $uriParts = parse_url($uri);
         parse_str($uriParts['query'] ?? '', $queryParams);
 
-        $_SERVER['REQUEST_URI'] = $uri;
-        $serverVars             = array_merge($server, $_SERVER);
+        $_SERVER['REQUEST_URI']    = $uri;
+        $_SERVER['REQUEST_METHOD'] = $method;
+        $serverVars                = array_merge($server, $_SERVER);
 
         return new self($queryParams, $serverVars);
     }
@@ -36,5 +40,10 @@ class Request
     public function getPath(): string
     {
         return strtok($this->serverVars['REQUEST_URI'], '?');
+    }
+
+    public function getMethod(): string
+    {
+        return $this->serverVars['REQUEST_METHOD'];
     }
 }
