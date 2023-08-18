@@ -23,14 +23,14 @@ abstract class ApiTestCase extends BaseTestCase
         // Merge server variables with $headers
         $server = array_merge([
             'CONTENT_TYPE' => 'application/json',
-            'Accept' => 'application/json',
+            'Accept'       => 'application/json',
         ], $headers);
 
         // Create a $request using a static named constructor
         $request = Request::create(
-            method: $method,
-            uri: $uri,
-            server: $server,
+            method:  $method,
+            uri:     $uri,
+            server:  $server,
             content: $content
         );
 
